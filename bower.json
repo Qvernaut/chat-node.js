@@ -1,0 +1,22 @@
+{
+  "name": "chat",
+  "description": "Chat on node.js with cosket.io",
+  "main": "index.js",
+  "authors": [
+    "Nicolas Slivinskiy"
+  ],
+  "keywords": [
+    "chat-node.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.0"
+  }
+}

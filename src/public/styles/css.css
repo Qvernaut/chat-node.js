@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:link, :visited {
+    text-decoration: none;
+}
+
+body {
+    font: 14px/18px Open Sans,Arial,Helvetica,sans-serif;
+    color: #333;
+}
+
+/*TOOLBAR*/
+.toolbar {
+    background: #FFFFFF;
+    width: 100%;
+    height: 56px;
+    z-index: 1;
+}
+
+.toolbar__left-col {
+    background: #FFFFFF;
+    position: absolute;
+    height: 56px;
+    left: 0;
+    top: 0;
+    width: 28.2%;
+    border-right: 1px solid #F3F3F3;
+    z-index: 1;
+}
+
+.toolbar__right-col {
+    background: #FFFFFF;
+    position: absolute;
+    height: 56px;
+    right: 0;
+    top: 0;
+    width: 71.6%;
+    z-index: 1;
+}
+
+/*LEFT-COL*/
+.left-col {
+    overflow: auto;
+    background: #FFFFFF;
+    width: 28.1%;
+    top: 56px;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 1;
+}
+/*RIGHT-COL*/
+.right-col {
+    overflow: auto;
+    background: #FAFAFA;
+    width: 71.8%;
+    top: 56px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 1;
+}

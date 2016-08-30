@@ -1,13 +1,5 @@
 {
   "name": "chat",
-  "description": "Chat on node.js with cosket.io",
-  "main": "index.js",
-  "authors": [
-    "Nicolas Slivinskiy"
-  ],
-  "keywords": [
-    "chat-node.js"
-  ],
   "ignore": [
     "**/.*",
     "node_modules",

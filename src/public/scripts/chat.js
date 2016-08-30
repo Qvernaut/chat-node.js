@@ -8,29 +8,59 @@
     var serverPort = '8080';
 
     function bindDOMEvents() {
+        $('.usernameInput').keyup(function(){
+            if(event.keyCode==13) {
+                nickname = $(this).val();
+                connect();
+                $('.login-page').fadeOut(200);
+                $('.message').focus();
+            }
+        });
 
-        connect();
+        $('.message').keyup(function(){
+            if(event.keyCode==13) {
+                handleMessage();
+            }
+        });
     }
 
     function bindSocketEvents(){
+        socket.on('updateChatList', function(data){
+            var users = '';
+
+            for(var i in data) {
+                users += '<div class="user">' + data[i] + '</div>';
+            }
+
+            $('.left-col').html(users);
+        });
+
+        socket.on('newMessage', function(data){
+            $(".messages").append('<div class="mess"><div class="mess-username">' + data.userName + '</div>' +
+                data.message + '</div>');
+        })
 
     }
 
-    function connect(){
+    function handleMessage(){
+        var message = $('.message').val().trim();
+        if(message){
+            socket.emit('newMessage', {message: message});
+            $(".messages").append('<div class="mess own"><div class="mess-username own">' + nickname + '</div>' +
+                message + '</div>')
+            $('.message').val('');
+        }
+    }
 
+    function connect(){
         socket = io.connect(serverProtocol + '://' + serverAddress + ':' + serverPort);
 
         bindSocketEvents();
+
+        socket.emit('userRegister', {"userName" : nickname});
     }
 
     $(function(){
         bindDOMEvents();
-
-        socket.on('connect', function(){
-            socket.emit('connect', { nickname: nickname });
-        });
-        socket.emit('userConnect', {"userConnect" : "1"});
-        socket.emit('send', {"send": "2"});
-        socket.emit('message', {"message": "3"});
     });
 })(jQuery);

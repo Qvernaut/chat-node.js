@@ -4,43 +4,28 @@ var chatClients = {};
 var io = require('socket.io').listen(port);
 
 io.sockets.on('connection', function(socket) {
-
-    socket.on('connect', function(data){
-        connect(socket, data);
+    socket.on('userRegister', function(data){
+        userRegister(socket, data);
+        io.sockets.emit('updateChatList', chatClients);
     });
 
-    socket.on('userConnect', function(data) {
-
-        connect(socket, data);
+    socket.on('newMessage', function(data) {
+        newMessage(socket, data);
     });
-
-    socket.on('send', function(data) {
-
-       send(socket, data);
-    });
-
-    socket.on('message', function(data) {
-
-        message(socket, data);
-    });
-
 });
 
-function connect(socket, data) {
-    console.log(data);
+function userRegister(socket, data) {
+    chatClients[socket.id] = data.userName;
+    socket.username = data.userName;
 }
 
-function userConnect(socket, data) {
-    console.log(data);
+function newMessage(socket, data) {
+    socket.broadcast.emit('newMessage', {
+        userName: socket.username,
+        message: data.message
+    });
 }
 
-function send(socket, data) {
-    console.log(data);
-}
-
-function message(socket, data) {
-    console.log(data);
-}
 
 console.log('Chat listening to port %d...', port);
 

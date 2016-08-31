@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="39b362fa-5e31-4b2f-a57a-ed2882cf1296" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/public/index.html" afterPath="$PROJECT_DIR$/src/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/public/scripts/chat.js" afterPath="$PROJECT_DIR$/src/public/scripts/chat.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/public/styles/css.css" afterPath="$PROJECT_DIR$/src/public/styles/css.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/server.js" afterPath="$PROJECT_DIR$/src/server.js" />
-    </list>
+    <list default="true" id="39b362fa-5e31-4b2f-a57a-ed2882cf1296" name="Default" comment="" />
     <ignored path="nodejs.local.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />

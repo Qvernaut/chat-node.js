@@ -82,7 +82,7 @@ body {
 
 .message {
     bottom: 0;
-    height: 44px;
+    height: 55px;
     left: 0;
     outline: none;
     right: 0;
@@ -91,6 +91,9 @@ body {
     border: 0;
     color: #ffffff;
     padding: 0 15px;
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    border-color: #555;
 }
 
 .messages {
@@ -110,6 +113,7 @@ body {
     color: #fff;
     padding: 10px 10px;
     width: 500px;
+    overflow: auto;
 }
 
 .mess.own {
@@ -120,8 +124,96 @@ body {
     font-size: 15px;
     margin-bottom: 3px;
     color: red;
+    font-weight: bold;
 }
 
 .mess-username.own {
     color: #2F82AA;
+}
+
+input.message:hover {
+    border-top: 2px solid #555;
+}
+
+input.message:focus {
+    border-top: 2px solid #cd0;
+}
+
+::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+    background: rgba(0,0,0,0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #677073;
+}
+
+.name {
+    position: relative;
+}
+
+/*.online {*/
+    /*background: green;*/
+    /*border-radius: 50%;*/
+    /*width: 13px;*/
+    /*height: 13px;*/
+    /*position: absolute;*/
+    /*top: 3px;*/
+    /*right: -23px;*/
+/*}*/
+
+/*.offline {*/
+    /*background: red;*/
+    /*border-radius: 50%;*/
+    /*width: 13px;*/
+    /*height: 13px;*/
+    /*position: absolute;*/
+    /*top: 3px;*/
+    /*right: -23px;*/
+/*}*/
+
+.online {
+    width: 13px;
+    height: 13px;
+    background-color: green;
+    border-radius: 100%;
+    -webkit-animation: sk-scaleout 0.9s infinite ease-in-out;
+    animation: sk-scaleout 0.9s infinite ease-in-out;
+    position: absolute;
+    top: 5px;
+    right: -23px;
+    display: block;
+}
+
+@-webkit-keyframes sk-scaleout {
+    0% { -webkit-transform: scale(0) }
+    100% {
+        -webkit-transform: scale(1.0);
+        opacity: 0;
+    }
+}
+
+@keyframes sk-scaleout {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    } 100% {
+          -webkit-transform: scale(1.0);
+          transform: scale(1.0);
+          opacity: 0;
+      }
+}
+
+.offline {
+    width: 13px;
+    height: 13px;
+    background-color: red;
+    border-radius: 100%;
+    -webkit-animation: sk-scaleout 0.9s infinite ease-in-out;
+    animation: sk-scaleout 0.9s infinite ease-in-out;
+    position: absolute;
+    top: 5px;
+    right: -23px;
+    display: block;
 }

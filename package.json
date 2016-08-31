@@ -2,7 +2,8 @@
   "name": "chat",
   "version": "1.0.0",
   "dependencies": {
-    "socket.io": "^1.4.8"
+    "socket.io": "^1.4.8",
+    "cllc": "0.0.9"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

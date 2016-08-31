@@ -2,6 +2,7 @@ var port = 8080;
 var chatClients = {};
 var chatClientsOnline = {};
 
+var log = require('cllc')();
 var io = require('socket.io').listen(port);
 
 io.sockets.on('connection', function(socket) {
@@ -27,6 +28,8 @@ io.sockets.on('connection', function(socket) {
 });
 
 function userRegister(socket, data) {
+    log.step(1, 0);
+
     chatClients[socket.id] = data.userName;
 
     socket.username = data.userName;
@@ -44,6 +47,8 @@ function newMessage(socket, data) {
 }
 
 function disconnect(socket, data) {
+    log.step(-1, -1);
+
     setTimeout(function () {
         delete chatClients[socket.id];
         delete chatClientsOnline[socket.id];
@@ -52,6 +57,7 @@ function disconnect(socket, data) {
     }, 500);
 }
 function online(socket, data) {
+    log.step(0, 1);
     chatClientsOnline[socket.id] = socket.username;
 
     socket.status = 'online';
@@ -60,6 +66,8 @@ function online(socket, data) {
 }
 
 function offline(socket, data) {
+    log.step(0, -1);
+
     delete chatClientsOnline[socket.id];
 
     socket.status = 'offline';
@@ -67,6 +75,6 @@ function offline(socket, data) {
     io.sockets.emit('usersStatus', chatClientsOnline);
 }
 
-
-console.log('Chat listening to port %d...', port);
+log('Chat listening to port', port, '...');
+log.start('Пользователей онлайн %s, Активных %s.');
 

@@ -1,14 +1,15 @@
 "use strict";
 (function($) {
     var socket = null;
+    var clientId = null;
     var nickname = null;
-    var windowActive = true;
-    var messageSong = '../src/public/sounds/sound.mp3';
+	var windowActive = true;
+	var messageSong = '../public/sounds/sound.mp3';
     var serverProtocol = 'http';
-    var serverAddress = 'localhost';
+    var serverAddress = 'factslives.fvds.ru';
     var serverPort = '8080';
 
-    function bindDOMEvents() {
+     function bindDOMEvents() {
         $('.usernameInput').keyup(function(){
             if(event.keyCode==13) {
                 handleNicname();

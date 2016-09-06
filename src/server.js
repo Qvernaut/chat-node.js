@@ -36,7 +36,7 @@ function userRegister(socket, data) {
 
     io.sockets.emit('updateChatList', chatClients);
 
-    online(socket, data);
+    online(socket);
 }
 
 function newMessage(socket, data) {
@@ -54,10 +54,12 @@ function disconnect(socket, data) {
         delete chatClientsOnline[socket.id];
 
         io.sockets.emit('updateChatList', chatClients);
+        io.sockets.emit('usersStatus', chatClientsOnline);
     }, 500);
 }
 function online(socket, data) {
     log.step(0, 1);
+
     chatClientsOnline[socket.id] = socket.username;
 
     socket.status = 'online';

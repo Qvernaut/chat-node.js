@@ -12,4 +12,8 @@ module.exports = function(config) {
     ]));
 
     gulp.task('push', ['commit-lib', 'push-lib']);
+
+    gulp.task('rs', shell.task([
+        'node src/frontend/app/server.js'
+    ]));
 };

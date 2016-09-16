@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Chat on node.js with socket.io</title>
-        <link href="styles/css.css" rel="stylesheet">
-    </head>
-    <body>
-        <body>
-            <div class="login-page">
-                <div class="form">
-                    <h3 class="title">Как вас зовут?</h3>
-                    <input class="usernameInput" type="text" maxlength="14">
-                </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-page__auth-form">
+            <h3 class="login-page__titie">Как вас зовут?</h3>
+            <input class="login-page__nickName" type="text" maxlength="14">
+        </div>
+    </div>
+    <div class="page-wrap">
+        <div class="left-panel">
+            <div class="left-panel__content">
+
             </div>
-            <div class="content">
-                <div class="left-col">
-                </div>
-                <div class="right-col">
-                    <div class="messages">
-                    </div>
-                    <div class="message-container">
-                        <input class="message" type="text" placeholder="Введите Ваше сообщение...">
-                    </div>
-                </div>
+        </div>
+        <div class="right-panel">
+            <div class="right-panel__content">
+
             </div>
-        </body>
-    </body>
-    <!--<script src="../../bower_components/socket.io-client/socket.io.js"></script>-->
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script src="scripts/chat.js"></script>
+            <div class="right-panel__send-panel">
+                <textarea class="right-panel__textarea" placeholder="Введите Ваше сообщение..."></textarea>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="scripts/chat.js"></script>
 </html>

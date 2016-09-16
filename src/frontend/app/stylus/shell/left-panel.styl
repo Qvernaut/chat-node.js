@@ -1,0 +1,51 @@
+.left-panel
+    float left
+    height 100%
+    width $left-panel
+    background-color $darker
+    overflow-x hidden
+
+  .left-panel__content
+      height 100%
+      color $gray-lighter
+      overflow auto
+
+    .left-panel__user-block
+        margin-right 15px
+        margin-top 4px
+        position relative
+        height 24px
+        float right
+        font-family $font-family-base
+
+      .left-panel__nickname
+          float right
+          font-size $font-size-base
+          line-height $line-height-computed
+          width 130px
+          white-space nowrap
+          text-overflow ellipsis
+          overflow hidden
+
+      .left-panel__user-status
+          width 9px
+          height 9px
+          border-radius 100%
+          animation sk-scaleout 1s infinite ease-in-out
+          position absolute
+          top 8px
+          left -15px
+
+      @keyframes sk-scaleout
+            0%
+                transform: scale(0)
+
+            100%
+                transform: scale(1.0)
+                opacity: 0
+
+      .left-panel__user-status_online
+          background-color #38938A
+
+      .left-panel__user-status_offline
+          background-color #EB4D5C

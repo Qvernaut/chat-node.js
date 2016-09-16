@@ -9,13 +9,13 @@
     var serverPort = '8080';
 
     function bindDOMEvents() {
-        $('.usernameInput').keyup(function(){
+        $('.login-page__nickName').keyup(function(){
             if(event.keyCode==13) {
                 handleNicname();
             }
         });
 
-        $('.message').keyup(function(){
+        $('.right-panel__textarea').keyup(function(){
             if(event.keyCode==13) {
                 handleMessage();
             }
@@ -27,23 +27,36 @@
             var users = '';
 
             for(var i in data) {
-                users += '<div class="user" data="' + i + '"><span class="name">' + data[i] + '</span></div>';
+                users += '<div class="left-panel__user-block"  data="' + i + '">' +
+                            '<span class="left-panel__user-status_offline left-panel__user-status"></span>' +
+                            '<span class="left-panel__nickname">' +
+                                data[i] +
+                            '</span>' +
+                            '</div>';
             }
 
-            $('.left-col').html(users);
+            $('.left-panel__content').html(users);
         });
 
         socket.on('newMessage', function(data){
-            $(".messages").append('<div class="mess"><div class="mess-username">' + data.userName + '</div>' +
-                data.message + '</div>');
+            var date = new Date();
+            var hours = date.getHours() >= 10 ? date.getHours() : '0' + date.getHours();
+            var minutes = date.getMinutes() >= 10 ?  date.getMinutes() : '0' +  date.getMinutes();
 
+            $(".right-panel__content").append('<div class="right-panel__message">' +
+                                                    '<span class="right-panel__author">' + data.userName + '</span>' +
+                                                    '<span class="right-panel__date">' + hours + ':' + minutes + '</span>' +
+                                                    '<div class="right-panel__message-text">' +
+                                                        data.message +
+                                                    '</div>' +
+                                                '</div>');
             playMessageSong();
 
             chatScroll();
         });
 
         socket.on('usersStatus', function(data){
-            $('.user').each(function(f,elem) {
+            $('.left-panel__user-block').each(function(f,elem) {
                 var trigger = false;
 
                 for(var i in data) {
@@ -53,47 +66,54 @@
                 }
 
                 if (trigger) {
-                    $(this).find('.offline').remove();
-                    $(this).find('.online').remove();
-                    $(this).find('.name').append('<span class="online"></span>');
+                    $(this).find('.left-panel__user-status').removeClass('left-panel__user-status_offline');
+                    $(this).find('.left-panel__user-status').addClass('left-panel__user-status_online');
                 } else {
-                    $(this).find('.online').remove();
-                    $(this).find('.offline').remove();
-                    $(this).find('.name').append('<span class="offline"></span>');
+                    $(this).find('.left-panel__user-status').removeClass('left-panel__user-status_online');
+                    $(this).find('.left-panel__user-status').addClass('left-panel__user-status_offline');
                 }
             });
         })
     }
 
     function handleMessage(){
-        var message = $('.message').val().trim();
+        var message = $('.right-panel__textarea').val().trim();
 
         if(message){
             socket.emit('newMessage', {message: message});
 
-            $(".messages").append('<div class="mess own"><div class="mess-username own">' + nickname + '</div>' +
-                message + '</div>');
+            var date = new Date();
+            var hours = date.getHours() >= 10 ? date.getHours() : '0' + date.getHours();
+            var minutes = date.getMinutes() >= 10 ?  date.getMinutes() : '0' +  date.getMinutes();
 
-            $('.message').val('');
+            $(".right-panel__content").append('<div class="right-panel__message">' +
+                                                    '<span class="right-panel__author right-panel__author_own">' + nickname + '</span>' +
+                                                    '<span class="right-panel__date">' + hours + ':' + minutes + '</span>' +
+                                                    '<div class="right-panel__message-text">' +
+                                                         message +
+                                                    '</div>' +
+                                                '</div>');
+
+
+            $('.right-panel__textarea').val('');
 
             chatScroll();
         }
     }
 
     function handleNicname(){
-        nickname = $('.usernameInput').val().trim();
+        nickname = $('.login-page__nickName').val().trim();
 
         if(nickname) {
             connect();
-
             $('.login-page').fadeOut(200);
 
-            $('.message').focus();
+            $('.right-panel__textarea').focus();
         }
     }
 
     function chatScroll() {
-        $('.messages').scrollTop($('.messages').prop('scrollHeight'));
+        $('.right-panel__content').scrollTop($('.right-panel__content').prop('scrollHeight'));
     }
 
     function connect(){

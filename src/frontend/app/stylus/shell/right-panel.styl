@@ -1,0 +1,63 @@
+.right-panel
+    float right
+    height 100%
+    width $right-panel
+    background-color $dark
+    position relative
+
+    .right-panel__content
+        font-family $font-family-base
+        position absolute
+        top 0
+        bottom 73px
+        height auto
+        overflow auto
+        width 100%
+
+        .right-panel__message
+            font-size $font-size-base
+            padding 5px 0
+            width 83.4%
+            margin 0 auto
+
+            .right-panel__author
+                font-weight $font-weight
+                color $orange
+                font-size $font-size-tiny
+
+            .right-panel__author_own
+                color $green
+
+            .right-panel__date
+                color $gray-light
+                font-size $font-size-tiny
+                margin-left 5px
+
+            .right-panel__message-text
+                color $white
+                margin-top 7px
+
+    .right-panel__send-panel
+        position absolute
+        bottom 0
+        width 83.4%
+        padding 0 70px
+
+        .right-panel__textarea
+            width 100%
+            background-color $dark
+            border 0
+            outline none
+            color $white
+            height auto
+            min-height 50px
+            line-height 20px
+            font-family $font-family-base
+            font-size $font-size-tiny
+            padding-top 7px
+            border-top 1px solid $gray-light
+            transition border-color ease-in-out .15s, box-shadow ease-in-out .15s
+            display block
+
+        .right-panel__textarea:focus
+            border-top 1px solid $blue

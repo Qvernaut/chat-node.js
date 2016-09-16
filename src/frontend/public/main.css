@@ -1,0 +1,194 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #21252b;
+  font: Tahoma, sans-serif, Arial, Helvetica;
+}
+.page-wrap {
+  height: 100%;
+  margin: 0 auto;
+  max-width: 1010px;
+  min-width: 300px;
+  overflow: hidden;
+}
+.left-panel {
+  float: left;
+  height: 100%;
+  width: 16.46%;
+  background-color: #21252b;
+  overflow-x: hidden;
+}
+.left-panel__content {
+  height: 100%;
+  color: #6f7682;
+  overflow: auto;
+}
+.left-panel__user-block {
+  margin-right: 15px;
+  margin-top: 4px;
+  position: relative;
+  height: 24px;
+  float: right;
+  font-family: Tahoma, sans-serif, Arial, Helvetica;
+}
+.left-panel__nickname {
+  float: right;
+  font-size: 15px;
+  line-height: 21px;
+  width: 130px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.left-panel__user-status {
+  width: 9px;
+  height: 9px;
+  border-radius: 100%;
+  -webkit-animation: sk-scaleout 1s infinite ease-in-out;
+          animation: sk-scaleout 1s infinite ease-in-out;
+  position: absolute;
+  top: 8px;
+  left: -15px;
+}
+.left-panel__user-status_online {
+  background-color: #38938a;
+}
+.left-panel__user-status_offline {
+  background-color: #eb4d5c;
+}
+@-webkit-keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0;
+  }
+}
+@keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0;
+  }
+}
+.right-panel {
+  float: right;
+  height: 100%;
+  width: 83.54%;
+  background-color: #282c34;
+  position: relative;
+}
+.right-panel .right-panel__content {
+  font-family: Tahoma, sans-serif, Arial, Helvetica;
+  position: absolute;
+  top: 0;
+  bottom: 73px;
+  height: auto;
+  overflow: auto;
+  width: 100%;
+}
+.right-panel .right-panel__content .right-panel__message {
+  font-size: 15px;
+  padding: 5px 0;
+  width: 83.4%;
+  margin: 0 auto;
+}
+.right-panel .right-panel__content .right-panel__message .right-panel__author {
+  font-weight: 700;
+  color: #e2c08d;
+  font-size: 14px;
+}
+.right-panel .right-panel__content .right-panel__message .right-panel__author_own {
+  color: #73c990;
+}
+.right-panel .right-panel__content .right-panel__message .right-panel__date {
+  color: #4f565f;
+  font-size: 14px;
+  margin-left: 5px;
+}
+.right-panel .right-panel__content .right-panel__message .right-panel__message-text {
+  color: #fff;
+  margin-top: 7px;
+}
+.right-panel .right-panel__send-panel {
+  position: absolute;
+  bottom: 0;
+  width: 83.4%;
+  padding: 0 70px;
+}
+.right-panel .right-panel__send-panel .right-panel__textarea {
+  width: 100%;
+  background-color: #282c34;
+  border: 0;
+  outline: none;
+  color: #fff;
+  height: auto;
+  min-height: 50px;
+  line-height: 20px;
+  font-family: Tahoma, sans-serif, Arial, Helvetica;
+  font-size: 14px;
+  padding-top: 7px;
+  border-top: 1px solid #4f565f;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  display: block;
+}
+.right-panel .right-panel__send-panel .right-panel__textarea:focus {
+  border-top: 1px solid #528bff;
+}
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #353b45;
+  border-radius: 3px;
+}
+.login-page {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #21252b;
+  z-index: 2;
+  -webkit-transition: display 1s ease-out 0.5s;
+  transition: display 1s ease-out 0.5s;
+}
+.login-page .login-page__auth-form {
+  height: 100px;
+  margin-top: -100px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 100%;
+}
+.login-page .login-page__titie {
+  color: #fff;
+  font-weight: 100;
+  font-size: 200%;
+  padding: 23px 0;
+  margin: 0;
+}
+.login-page .login-page__nickName {
+  border: 0;
+  outline: none;
+  padding: 7.5px 0;
+  text-align: center;
+  width: 400px;
+  font-size: 200%;
+  letter-spacing: 3px;
+  background: #1b1d23;
+  color: #fff;
+}

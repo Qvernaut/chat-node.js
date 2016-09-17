@@ -1,8 +1,18 @@
-module.exports = function(io, log) {
+module.exports = function(io, log, test) {
     var chatClients = {};
     var chatClientsOnline = {};
 
     io.sockets.on('connection', function (socket) {
+        // // console.log(socket.handshake.session.uid);
+        //
+        // socket.on('getSession', function (data) {
+        //     // socket.emit('getSession', {"sessionId": socket.handshake.session.uid});
+        // });
+        //
+        // socket.on('setSession', function (data) {
+        //     setSession(socket, data);
+        // });
+
         socket.on('userRegister', function (data) {
             userRegister(socket, data);
         });
@@ -27,9 +37,9 @@ module.exports = function(io, log) {
     function userRegister(socket, data) {
         log.step(1, 0);
 
-        chatClients[socket.id] = data.userName;
+        chatClients[socket.id] = data.userLogin;
 
-        socket.username = data.userName;
+        socket.userLogin = data.userLogin;
 
         io.sockets.emit('updateChatList', chatClients);
 
@@ -38,7 +48,7 @@ module.exports = function(io, log) {
 
     function newMessage(socket, data) {
         socket.broadcast.emit('newMessage', {
-            userName: socket.username,
+            userLogin: socket.userLogin,
             message: data.message
         });
     }
@@ -58,7 +68,7 @@ module.exports = function(io, log) {
     function online(socket, data) {
         log.step(0, 1);
 
-        chatClientsOnline[socket.id] = socket.username;
+        chatClientsOnline[socket.id] = socket.userLogin;
 
         socket.status = 'online';
 
@@ -74,6 +84,11 @@ module.exports = function(io, log) {
 
         io.sockets.emit('usersStatus', chatClientsOnline);
     }
+
+    // function setSession(socket, data) {
+    //     // socket.session.uLogin = data.userLogin;
+    //     socket.handshake.session.uid = Date.now();
+    // }
 
     log.start('Пользователей онлайн %s, Активных %s.');
 };

@@ -7,29 +7,53 @@
     background $darker
     z-index 2
     transition display 1s ease-out 0.5s
+    font-family $font-family-base
+    font-size $font-size-large
 
     .login-page__auth-form
         height 100px
-        margin-top -100px
+        margin-top -120px
         position absolute
         text-align center
         top 50%
         width 100%
 
-      .login-page__titie
-          color #fff
-          font-weight 100
-          font-size 200%
-          padding 23px 0
-          margin 0
+        .login-page__titie
+            color #fff
+            font-weight 100
+            padding 15px 0
+            margin 0
 
-      .login-page__nickName
-          border 0
-          outline none
-          padding 7.5px 0
-          text-align center
-          width 400px
-          font-size 200%
-          letter-spacing 3px
-          background $darkest
-          color $white
+        .login-page__input
+            border 0
+            outline none
+            text-align center
+            width 336px
+            height 40px
+            letter-spacing 3px
+            background $darkest
+            color $white
+            display block
+            margin 7px auto 0 auto
+            font-family $font-family-base
+            font-size $font-size-base
+
+        .login-page__button
+            background-color $gray
+            color $gray-lighter
+            padding 0
+            border 0
+            height 40px
+            width 336px
+            margin 15px 0
+            outline none
+            font-family $font-family-base
+            font-size $font-size-large
+            cursor pointer
+
+        .login-page__link
+            color $blue
+            font-family $font-family-base
+            font-size $font-size-tiny
+            text-decoration underline
+            cursor pointer

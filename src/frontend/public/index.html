@@ -8,9 +8,25 @@
 <body>
     <div class="login-page">
         <div class="login-page__auth-form">
-            <h3 class="login-page__titie">Как вас зовут?</h3>
-            <input class="login-page__nickName" type="text" maxlength="14">
+            <h3 class="login-page__titie">Вход в чат</h3>
+            <input class="login-page__input login-page__input_login" type="text" maxlength="14" placeholder="Логин">
+            <input class="login-page__input login-page__input_password" type="password" maxlength="14" placeholder="Пароль">
+            <button class="login-page__button">Вход</button>
+            <div class="login-page__link">Зарегистрироваться</div>
         </div>
+    </div>
+    <div class="registration-page">
+        <div class="registration-page__reg-form">
+            <h3 class="registration-page__titie">Регистрация в чате</h3>
+            <input class="registration-page__input registration-page__input_login" type="text" maxlength="14" placeholder="Логин">
+            <input class="registration-page__input registration-page__input_password" type="password" maxlength="14" placeholder="Пароль">
+            <button class="registration-page__button">Зарегистрироваться</button>
+            <div class="registration-page__link">Войти</div>
+        </div>
+    </div>
+    <div class="growl-container">
+        <div class="growl-container__title">Ошибка</div>
+        <div class="growl-container__message">Логин либо пароль не верный</div>
     </div>
     <div class="page-wrap">
         <div class="left-panel">

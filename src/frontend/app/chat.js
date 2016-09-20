@@ -1,17 +1,17 @@
-module.exports = function(io, log, test) {
-    var chatClients = {};
+module.exports = function(io, log) {
+    //баги: плодятся сессии
+    var accessLog = false;
+    var chatClients = [];
     var chatClientsOnline = {};
 
     io.sockets.on('connection', function (socket) {
-        // // console.log(socket.handshake.session.uid);
-        //
-        // socket.on('getSession', function (data) {
-        //     // socket.emit('getSession', {"sessionId": socket.handshake.session.uid});
-        // });
-        //
-        // socket.on('setSession', function (data) {
-        //     setSession(socket, data);
-        // });
+        socket.on('sessionClose', function (data) {
+            sessionClose(socket, data);
+        });
+
+        socket.on('gR', function (data) {
+            gR(socket, data);
+        });
 
         socket.on('userRegister', function (data) {
             userRegister(socket, data);
@@ -35,15 +35,54 @@ module.exports = function(io, log, test) {
     });
 
     function userRegister(socket, data) {
-        log.step(1, 0);
+        if(accessLog) log.step(1, 0);
 
-        chatClients[socket.id] = data.userLogin;
+        if(chatClients.length === 0) {
+            chatClients.push({
+                            'login': data.userLogin,
+                            'socketId': [socket.id],
+                            'sessionId': [socket.handshake.sessionID]
+                             });
 
-        socket.userLogin = data.userLogin;
+            socket.userLogin = data.userLogin;
 
-        io.sockets.emit('updateChatList', chatClients);
+            io.sockets.emit('updateChatList', chatClients);
 
-        online(socket);
+            online(socket);
+        } else {
+            if(socket.userLogin){
+                socket.emit('updateChatList', chatClients);
+
+                online(socket);
+            } else {
+                for(var i = 0; i < chatClients.length; i++) {
+                    if(chatClients[i].login === data.userLogin) {
+                        // already logged
+                        chatClients[i].socketId.push(socket.id);
+                        chatClients[i].sessionId.push(socket.handshake.sessionID);
+
+                        socket.userLogin = data.userLogin;
+
+                        io.sockets.emit('updateChatList', chatClients);
+
+                        online(socket);
+                    } else {
+
+                        chatClients.push({'login': data.userLogin,
+                            'socketId': [socket.id],
+                            'sessionId': [socket.handshake.sessionID]});
+
+                        socket.userLogin = data.userLogin;
+
+                        io.sockets.emit('updateChatList', chatClients);
+
+                        online(socket);
+                        break;
+                    }
+
+                }
+            }
+        }
     }
 
     function newMessage(socket, data) {
@@ -54,21 +93,24 @@ module.exports = function(io, log, test) {
     }
 
     function disconnect(socket, data) {
-        log.step(-1, -1);
+        if(accessLog) log.step(-1, -1);
 
         setTimeout(function () {
-            delete chatClients[socket.id];
-            delete chatClientsOnline[socket.id];
-
-            io.sockets.emit('updateChatList', chatClients);
-            io.sockets.emit('usersStatus', chatClientsOnline);
+            for(var i = 0; i < chatClients.length; i++) {
+                for (var j = 0; j < chatClients[i].socketId.length; j++) {
+                    if (chatClients[i].socketId[j] === socket.id) {
+                        chatClients[i].socketId.splice(j, 1);
+                        io.sockets.emit('usersStatus', chatClientsOnline);
+                    }
+                }
+            }
         }, 500);
     }
 
     function online(socket, data) {
-        log.step(0, 1);
+        if(accessLog) log.step(0, 1);
 
-        chatClientsOnline[socket.id] = socket.userLogin;
+        chatClientsOnline[socket.userLogin] = socket.userLogin;
 
         socket.status = 'online';
 
@@ -76,19 +118,50 @@ module.exports = function(io, log, test) {
     }
 
     function offline(socket, data) {
-        log.step(0, -1);
+        if(accessLog) log.step(0, -1);
 
-        delete chatClientsOnline[socket.id];
+        delete chatClientsOnline[socket.userLogin];
 
         socket.status = 'offline';
 
         io.sockets.emit('usersStatus', chatClientsOnline);
     }
 
-    // function setSession(socket, data) {
-    //     // socket.session.uLogin = data.userLogin;
-    //     socket.handshake.session.uid = Date.now();
-    // }
+    function gR(socket, data) {
+        if(chatClients.length === 0) {
+            socket.emit('cR', {state: true});
+        } else {
+            for(var i = 0; i < chatClients.length; i++) {
+                for (var j = 0; j < chatClients[i].sessionId.length; j++) {
+                    if (chatClients[i].sessionId[j] === socket.handshake.sessionID) {
+                        // one browser
+                        socket.userLogin = chatClients[i].login;
 
-    log.start('Пользователей онлайн %s, Активных %s.');
+                        chatClients[i].socketId.push(socket.id);
+                        chatClients[i].sessionId.push(socket.handshake.sessionID);
+
+                        socket.emit('cR', {state: false, login: socket.userLogin});
+                        break;
+                    } else {
+                        socket.emit('cR', {state: true});
+                    }
+                }
+            }
+        }
+    }
+
+    function sessionClose(socket, data) {
+        for(var i = 0; i < chatClients.length; i++) {
+            for (var j = 0; j < chatClients[i].socketId.length; j++) {
+                if (chatClients[i].socketId[j] === socket.id) {
+                    chatClients.splice(i, 1);
+                    io.sockets.emit('updateChatList', chatClients);
+                    break;
+                }
+            }
+        }
+        // socket.emit('sessionIsClosed');
+    }
+
+    if(accessLog) log.start('Пользователей онлайн %s, Активных %s.');
 };

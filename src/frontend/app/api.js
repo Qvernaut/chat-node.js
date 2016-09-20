@@ -14,7 +14,17 @@ module.exports = function(app, request) {
         };
 
         request(options, function (error, response, body) {
-            res.send(body);
+            if(!body) {
+                res.send('{"status": false ,"error": "Server error"}');
+            } else {
+                if(JSON.parse(body).status === true) {
+                    if(req.session.uid === undefined) {
+                        req.session.uid = Date.now();
+                    }
+                }
+
+                res.send(body);
+            }
         });
     });
 
@@ -27,7 +37,11 @@ module.exports = function(app, request) {
         };
 
         request(options, function (error, response, body) {
-            res.send(body);
+            if(!body) {
+                res.send('{"status": false ,"error": "Server error"}');
+            } else {
+                res.send(body);
+            }
         });
     });
 };
